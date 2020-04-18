@@ -8,11 +8,20 @@ class App extends React.Component {
   render() {
     return (
       <div className="container-fluid">
-        <Fragment>
-          <Router>
-            <MainApp />
-          </Router>
-        </Fragment>
+        <div className="row justify-content-center">
+          <div className="col-12 col-md-8 content-area" id="content-center">
+            <div className="row">
+              <div className="col-12 nopadding text-center" id="header">
+                <span className="text-center title">Briefing BINGO!!</span>
+              </div>
+            </div>
+            <Fragment>
+              <Router>
+                <MainApp />
+              </Router>
+            </Fragment>
+          </div>
+        </div>
       </div>
     );
   }

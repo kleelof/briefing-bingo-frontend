@@ -5,6 +5,10 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height: 100vh;
+  background-image: url(./assets/landing-page-bg.png);
+  background-size: cover;
+  background-position: center center;
 }
 
 code {
@@ -22,7 +26,9 @@ code {
 }
 
 .square {
-  width: 75px;
+  position: relative;
+  display: block;
+  width: 17vw;
   height: 75px;
   float: left;
   padding: 2px;
@@ -34,14 +40,11 @@ code {
             user-select: none;
 }
 
-.marked-square {
-  background-color: rgba(150, 10, 10, 0.8);
-  color: rgba(255, 255, 255, .8);
-}
-
 .square .inner {
-  margin: 2px;
-  border: 2px solid black;
+  margin: 2px; 
+  border: 2px solid rgba(255, 255, 255, 1);
+  background-color: rgba(255, 255, 255, .7);
+  color: rgba(0, 0, 0, 1);
   border-radius: 5px;
   width: 100%;
   height: 100%;
@@ -54,30 +57,209 @@ code {
   text-overflow: clip;
 }
 
+.square .inner img {
+  width: 100%;
+  height: 100%;
+}
+
+#freedom-square {
+  position: absolute;
+  top: 15%;
+  left: 0;
+  font-size: 1.3em;
+  font-weight: bold;
+  color: rgb(128, 228, 98);
+  text-shadow: 5px 5px 1px rgb(0,0,0);
+  z-index: 1;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
+}
+
+.marker { 
+  position: absolute;
+  top: 50%;
+  left: 15%;
+  font-size: 9vh;
+  font-weight: bold;
+  color: rgb(230, 17, 17);
+  text-shadow: 5px 5px 5px rgba(0, 0, 0, .8);
+  line-height: 0;
+  z-index: 1;
+}
+
 .active-square:hover {
   cursor: pointer;
-  background-color: rgba(33, 160, 54, 0.6);
+  background-color: rgba(33, 160, 54, 0.8);
+  color: rgba(255, 255, 255, .9);
+}
+
+.overlay {
+  position: absolute;
+  /*dim the background*/
+  display: none;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  padding-top: 100px;
+  z-index: 100;
+}
+
+.overlay .inner {
+  display: inline-block;
+  width: 80%;
 }
 
 .viewPhrase {
-  width: 100
+  display: block;
+  color:black;
+  text-align: center;
 }
 
 .viewPhrase .inner {
   background-color: rgba(255, 255, 255, .9);
   border: 2px solid rgba(0, 0, 0, 1);
   border-radius: 10px;
+  height: 50vh;
+  text-align: center;
+}
+
+.content-area {
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 0);
+}
+
+#loading-panel {
+  display: block;
+  margin-top: 150px;
+}
+
+#loading-pannel .inner {
+  margin-top: 50px;
+}
+
+#loading-panel .inner img {
+  width: 200px;
+}
+
+#loading-panel .inner .text {
+  position: absolute;
+  display: inline-block;
+  top: 10%;
+  left: 25%;
+  width: 50%;
+  color: rgba(255, 255, 255, 1);
+  font-weight: bold;
+  font-size: 2em;
+
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: rgba(0, 0, 0, 1);
+}
+
+#header .title {
+  display: inline-block;
+  width: 90%;
+  margin-top: 10px;
+  border-radius: 10px;
+  border: 2px solid rgba(255, 255, 255, 1);
+  font-size: 2.5em;
+  font-weight: bold;
+  background-color: rgba(0, 0, 0, .5);
+  color: rgba(255, 255, 255, .8);
+  text-align: center;
+}
+
+#bingo-card .grid {
+  margin-top: 2vh;
+  background-color: rgba(0, 0, 0, .5);
+  padding: 15px;
+  border-radius: 5px;
+  border: 2px solid rgba(255, 255, 255, 1);
+}
+
+#intro {
+  display: inline-block;
+  width: 100%;
+  margin-top: 5px;
+  border-radius: 10px;
+  border: 2px solid rgba(255, 255, 255, 1);
+  font-size: 1em;
+  font-weight: bold;
+  background-color: rgba(0, 0, 0, .5);
+  color: rgba(255, 255, 255, .8);
+  text-align: center;
+  padding: 3px;
+}
+
+.index-info {
+  display: block;
+  margin-top: 9px;
+  background-color: rgba(0, 0, 0, .7);
+  border-radius: 10px;
+  color: rgba(255, 255, 255, .9);
+  border: 3px solid rgba(255, 255, 255, .7);
+  padding: 5px;
+  font-size: 1.1em;
+  font-weight: bold;
+  text-align: center;
+}
+
+#get-your-card img {
+  width: 40vw;
+}
+
+#bingo-panel {
+  margin-top: 120px;
+  display: block;
+  background-color: rgba(0, 0, 0, .5);
+  text-align: center;
+  border: 2px solid rgba(255, 255, 255, 1);
+  text-align: center;
+}
+
+#bingo-panel h1 {
+  font-size: 5em;
+  color: rgba(255, 255, 255, 1);
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: rgb(245, 19, 19);
+}
+
+#bingo-panel img {
+  width: 55%;
 }
 
 @media (min-width: 576px) {
   
   .square {
     width: 10vw;
-    height: 120px;
+    height: 15vh;
   }
 
   .square .inner {
     font-size: 1.5vw;
   }
 
+  .marker {
+    font-size: 17vh;
+  }
+
+  .viewPhrase {
+    padding-top: 150px;
+  }
+
+  #loading-panel .inner .text {
+    top: 25%;
+  }
+
+  .index-info {
+    font-size: 1.5em;
+  }
+
+  #bingo-panel h1 {
+    font-size: 7em;
+  }
+
+  #bingo-panel img {
+    width: 20%;
+  }
 }

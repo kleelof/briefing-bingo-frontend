@@ -6,6 +6,9 @@ import service from '../../service/BingoService';
 import CardDTO from '../../models/card/Card';
 
 const bellAudio = require("../../assets/correctBell.mp3");
+const loadingIcon = require('../../assets/loading-icon.gif');
+const flag = require('../../assets/flag.gif');
+const facebook = require('../../assets/Facebook-share-button.png');
 
 interface IState {
     phrases: Phrase[],
@@ -116,15 +119,45 @@ export default class BingoCard extends React.Component<any, IState> {
     public render() {
         if (!this.state.loaded) {
             return (
-                <div>Loading...</div>
+                <div className="row justify-content-center">
+                    <div className="col-9 col-2" id="loading-panel">
+                            <div className="inner text-center">
+                                <span className="text">BUILDING YOUR CARD!</span>
+                                <img src={loadingIcon} alt="loading icon"/>
+                            </div>
+                    </div>
+                </div>
             )
         }
 
         return(
             <Fragment>
-                <div className="row justify-content-center">
-                    <div className="col-12 col-md-7 grid">
-                        {!this.state.viewPhrase &&
+                <div className="row justify-content-center" id="bingo-card">
+                    <div className="col-10" id="intro">
+                        Click the word or phrase you hear during the briefing.
+                    </div>
+                    <div className="grid">
+                        <div className={`overlay ${this.state.viewPhrase !== null ? 'viewPhrase' : ''}`}>
+                            <div className="inner">
+                                <h2>
+                                    {this.state.viewPhrase?.phrase}
+                                </h2> 
+                                <button className="btn btn-success" onClick={this.onMarkSquare}>
+                                    {
+                                            //this.state.markedPhrases.indexOf(this.state.viewPhrase) !== -1 ? "Unmark" : "Mark"
+                                    }
+                                </button>
+                            </div>
+                        </div>
+                        <div className="overlay" style={{display: this.state.hasBingo ? 'block' : 'none'}}>
+                            <div id="bingo-panel">
+                                    <h1>BINGO!</h1>
+                                    <a href ="" >
+                                        <img src={facebook} alt="share on facebook" />
+                                    </a>
+                            </div>
+                        </div>
+                        {
                             this.state.phrases.map((phrase: Phrase, index: number) => {
                                 let isMarked: boolean = this.state.markedPhrases.indexOf(phrase) !== -1;
                                 return (
@@ -133,12 +166,26 @@ export default class BingoCard extends React.Component<any, IState> {
                                             className={`square`}
                                             onClick={() => !phrase.isFree && !this.state.hasBingo ? this.setState({viewPhrase: phrase}) : null}
                                             >
-                                            <div className={`inner 
-                                                                ${isMarked ? "marked-square" : ""} 
-                                                                ${!phrase.isFree && !this.state.hasBingo ? "active-square" : ""}
-                                                            `}>
-                                                {phrase.phrase}
-                                            </div>
+                                                {phrase.isFree &&
+                                                    <div className="inner">
+                                                        <img src={flag} alt="flag" />
+                                                        <span id="freedom-square">Freedom Square</span>
+                                                    </div>
+                                                }
+                                                {!phrase.isFree &&
+                                                    <div className={`inner 
+                                                                        ${isMarked ? "marked-square" : ""} 
+                                                                        ${!phrase.isFree && !this.state.hasBingo ? "active-square" : ""}
+                                                                    `}>
+                                                        {phrase.phrase}
+                                                    </div>
+                                                }
+
+                                <div className="marker" style={{display: isMarked && !phrase.isFree ? 'block' : 'none'}}>
+                                    X
+                                </div>
+                                                }
+                                                
                                         </div>
                                         {(index + 1) % 5 === 0 &&
                                             <div className="clear"></div>
@@ -146,26 +193,6 @@ export default class BingoCard extends React.Component<any, IState> {
                                     </Fragment>
                                 )
                             })
-                        }
-                        {this.state.viewPhrase &&
-                            <div className="row viewPhrase justify-content-center">
-                                <div className="col-10 col-md-8 inner">
-                                    <div className="row">
-                                        <div className="col-12 text-center">
-                                            <h2>
-                                                {this.state.viewPhrase.phrase}
-                                            </h2>
-                                        </div>
-                                        <div className="col-12 text-center">
-                                            <button className="btn btn-success" onClick={this.onMarkSquare}>
-                                                {
-                                                     this.state.markedPhrases.indexOf(this.state.viewPhrase) !== -1 ? "Unmark" : "Mark"
-                                                }
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         }
                     </div>
                 </div>
