@@ -6,6 +6,7 @@ import service from '../../service/BingoService';
 import CardDTO from '../../models/card/Card';
 
 const bellAudio = require("../../assets/correctBell.mp3");
+const clickAudio = require("../../assets/click.mp3");
 const loadingIcon = require('../../assets/loading-icon.gif');
 const flag = require('../../assets/flag.gif');
 const facebook = require('../../assets/Facebook-share-button.png');
@@ -23,6 +24,7 @@ type point = {y: number, x: number};
 export default class BingoCard extends React.Component<any, IState> {
 
     private bell: UIfx = new UIfx(bellAudio);
+    private click: UIfx = new UIfx(clickAudio);
 
     constructor(props: any) {
         super(props);
@@ -45,21 +47,27 @@ export default class BingoCard extends React.Component<any, IState> {
                     let y: number = Math.floor(index / 5);
                     phrase.gridPosition = {y, x: index - y * 5}
                 })
-                this.setState({phrases: cardDTO.phrases, loaded: true});
-                this.resetGrid();
+
+                window.setTimeout(() => {
+                    this.setState({phrases: cardDTO.phrases, loaded: true});
+                    this.resetGrid();
+                }, 3000)
             })
     }
 
-    private onMarkSquare = (): void => {
+    private onMarkSquare = (phrase: Phrase): void => {
+        this.click.play();
         let markedPhrases: Phrase[] = this.state.markedPhrases;
 
-        if (this.state.viewPhrase) {
-            if (this.state.markedPhrases.indexOf(this.state.viewPhrase) === -1) {
-                markedPhrases.push(this.state.viewPhrase);
-                service.setChecked(this.state.viewPhrase.id, true);
+        if (phrase) {
+            if (this.state.markedPhrases.indexOf(phrase) === -1) {
+                console.log("add");
+                markedPhrases.push(phrase);
+                service.setChecked(phrase.id, true);
             } else {
-                markedPhrases = markedPhrases.filter((phrase: Phrase) => phrase.id !== this.state.viewPhrase?.id);
-                service.setChecked(this.state.viewPhrase.id, false);
+                console.log("update")
+                markedPhrases = markedPhrases.filter((cPhrase: Phrase) => cPhrase.id !== phrase.id);
+                service.setChecked(phrase.id, false);
             }
         }
         this.setState({markedPhrases, viewPhrase: null}, this.checkForBingo);
@@ -100,11 +108,12 @@ export default class BingoCard extends React.Component<any, IState> {
         }
         
         if (!hasBingo && (l2rRefs.indexOf(false) === -1 || r2lRefs.indexOf(false) === -1)) hasBingo = true; // diag tests
-        
+       
         if (hasBingo) {
             this.bell.play();
             this.setState({hasBingo});
-            service.setBingo();
+            console.log(this.state.markedPhrases);
+            service.setBingo(this.state.markedPhrases.filter((phrase: Phrase) => !phrase.isFree).map((phrase: Phrase) => phrase.id));
         }
     }
 
@@ -114,7 +123,7 @@ export default class BingoCard extends React.Component<any, IState> {
             hasBingo: false,
             markedPhrases: [this.state.phrases[12]]
         }); 
-    } 
+    }
 
     public render() {
         if (!this.state.loaded) {
@@ -134,7 +143,11 @@ export default class BingoCard extends React.Component<any, IState> {
             <Fragment>
                 <div className="row justify-content-center" id="bingo-card">
                     <div className="col-10" id="intro">
-                        Click the word or phrase you hear during the briefing.
+                            MARK THE WORDS OR PHRASES YOU HEAR DURING THE BRIEFING!
+                            <br/>
+                            <small>Click on a square to mark and unmark it.</small>
+                            <br/>
+                            <small>It's just a game. Close COUNTS!</small>
                     </div>
                     <div className="grid">
                         <div className={`overlay ${this.state.viewPhrase !== null ? 'viewPhrase' : ''}`}>
@@ -142,7 +155,7 @@ export default class BingoCard extends React.Component<any, IState> {
                                 <h2>
                                     {this.state.viewPhrase?.phrase}
                                 </h2> 
-                                <button className="btn btn-success" onClick={this.onMarkSquare}>
+                                <button className="btn btn-success" onClick={() => {}}>
                                     {
                                             //this.state.markedPhrases.indexOf(this.state.viewPhrase) !== -1 ? "Unmark" : "Mark"
                                     }
@@ -152,9 +165,14 @@ export default class BingoCard extends React.Component<any, IState> {
                         <div className="overlay" style={{display: this.state.hasBingo ? 'block' : 'none'}}>
                             <div id="bingo-panel">
                                     <h1>BINGO!</h1>
-                                    <a href ="" >
-                                        <img src={facebook} alt="share on facebook" />
-                                    </a>
+                                    <div>
+                                        <img 
+                                            src={facebook} 
+                                            alt="Share on Facebook"
+                                            onClick={() => window.open(`https://www.facebook.com/dialog/feed?app_id=220488182712718&display=iframe&redirect_uri=https://www.briefingbingo.com/close&link=https://www.briefingbingo.com/bingo/${service.card.playId}`, "myWindow", "width=600, height = 600")}
+                                            />
+                                        <div className="popup-msg">Will open in Popup!</div>
+                                    </div>
                             </div>
                         </div>
                         {
@@ -164,7 +182,7 @@ export default class BingoCard extends React.Component<any, IState> {
                                     <Fragment key={`square_${index}`}>
                                         <div 
                                             className={`square`}
-                                            onClick={() => !phrase.isFree && !this.state.hasBingo ? this.setState({viewPhrase: phrase}) : null}
+                                            onClick={() => !phrase.isFree && !this.state.hasBingo ? this.onMarkSquare(phrase) : null}
                                             >
                                                 {phrase.isFree &&
                                                     <div className="inner">
@@ -181,10 +199,10 @@ export default class BingoCard extends React.Component<any, IState> {
                                                     </div>
                                                 }
 
-                                <div className="marker" style={{display: isMarked && !phrase.isFree ? 'block' : 'none'}}>
-                                    X
-                                </div>
-                                                }
+                                                <div className="marker" style={{display: isMarked && !phrase.isFree ? 'block' : 'none'}}>
+                                                    X
+                                                </div>
+                                                
                                                 
                                         </div>
                                         {(index + 1) % 5 === 0 &&

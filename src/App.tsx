@@ -12,7 +12,11 @@ class App extends React.Component {
           <div className="col-12 col-md-8 content-area" id="content-center">
             <div className="row">
               <div className="col-12 nopadding text-center" id="header">
-                <span className="text-center title">Briefing BINGO!!</span>
+                <span className="text-center title">
+                  <small>TASK FORCE</small>
+                  <br/>
+                  Briefing BINGO!!
+                  </span>
               </div>
             </div>
             <Fragment>

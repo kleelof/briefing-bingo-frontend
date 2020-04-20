@@ -1,5 +1,6 @@
 import Service from "./Service";
 import Card from "../models/card/Card";
+import BingoDTO from "../models/card/BingoDTO";
 
 class BingoService extends Service {
 
@@ -20,8 +21,8 @@ class BingoService extends Service {
         this._get(`/api/${checked ?  "phraseChecked" : "phraseUnchecked"}/${phraseId}/${this.card.playId}`);
     }
 
-    public setBingo = (): void => {
-        this._get(`/api/setBingo/${this.card.playId}`);
+    public setBingo = (checkedPhraseIDs: number[]): void => {
+        this._post(`/api/setBingo`, new BingoDTO(this.card.playId, checkedPhraseIDs));
     }
 }
  

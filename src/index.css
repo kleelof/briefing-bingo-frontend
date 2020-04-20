@@ -49,12 +49,10 @@ code {
   width: 100%;
   height: 100%;
   text-align: center;
-  font-size: 30px;
-  font-size: 3.0vw;
+  font-size: .6em;
   padding: 2px;
   vertical-align: middle;
   overflow: hidden;
-  text-overflow: clip;
 }
 
 .square .inner img {
@@ -66,7 +64,7 @@ code {
   position: absolute;
   top: 15%;
   left: 0;
-  font-size: 1.3em;
+  font-size: 1.5em !important;
   font-weight: bold;
   color: rgb(128, 228, 98);
   text-shadow: 5px 5px 1px rgb(0,0,0);
@@ -85,6 +83,10 @@ code {
   text-shadow: 5px 5px 5px rgba(0, 0, 0, .8);
   line-height: 0;
   z-index: 1;
+}
+
+.marker:hover {
+  cursor: pointer; 
 }
 
 .active-square:hover {
@@ -205,7 +207,7 @@ code {
 }
 
 #get-your-card img {
-  width: 40vw;
+  width: 70vw;
 }
 
 #bingo-panel {
@@ -225,7 +227,16 @@ code {
 }
 
 #bingo-panel img {
-  width: 55%;
+  width: 40%;
+}
+
+#bingo-panel .popup-msg {
+  clear: both;
+  font-weight: bold;
+  font-size: 1.2em;
+  color: rgba(255, 255, 255, 1);
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: rgb(0,0,0);
 }
 
 @media (min-width: 576px) {
@@ -260,6 +271,7 @@ code {
   }
 
   #bingo-panel img {
-    width: 20%;
+    width: 30%;
   }
+
 }
