@@ -142,12 +142,12 @@ export default class BingoCard extends React.Component<any, IState> {
         return(
             <Fragment>
                 <div className="row justify-content-center" id="bingo-card">
-                    <div className="col-10" id="intro">
+                    <div className="col-12 index-info">
                             MARK THE WORDS OR PHRASES YOU HEAR DURING THE BRIEFING!
                             <br/>
                             <small>Click on a square to mark and unmark it.</small>
                             <br/>
-                            <small>It's just a game. Close COUNTS!</small>
+                            <small>It's just a game. Close enough COUNTS!</small>
                     </div>
                     <div className="grid">
                         <div className={`overlay ${this.state.viewPhrase !== null ? 'viewPhrase' : ''}`}>
@@ -169,7 +169,7 @@ export default class BingoCard extends React.Component<any, IState> {
                                         <img 
                                             src={facebook} 
                                             alt="Share on Facebook"
-                                            onClick={() => window.open(`https://www.facebook.com/dialog/feed?app_id=220488182712718&display=iframe&redirect_uri=https://www.briefingbingo.com/close&link=https://www.briefingbingo.com/bingo/${service.card.playId}`, "myWindow", "width=600, height = 600")}
+                                            onClick={() => window.open(`https://www.facebook.com/dialog/feed?app_id=220488182712718&display=iframe&redirect_uri=https://www.briefingbingo.com/close/${service.card.playId}&link=https://www.briefingbingo.com/bingo/${service.card.playId}`, "myWindow", "width=600, height = 600")}
                                             />
                                         <div className="popup-msg">Will open in Popup!</div>
                                     </div>

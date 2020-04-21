@@ -6,7 +6,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height: 100vh;
-  background-image: url(./assets/landing-page-bg.png);
+  background-color: rgba(255, 255, 255, 1);
   background-size: cover;
   background-position: center center;
 }
@@ -42,8 +42,8 @@ code {
 
 .square .inner {
   margin: 2px; 
-  border: 2px solid rgba(255, 255, 255, 1);
-  background-color: rgba(255, 255, 255, .7);
+  border: 2px solid rgba(230, 19, 19, 1);
+  background-color: rgba(255, 255, 255, .9);
   color: rgba(0, 0, 0, 1);
   border-radius: 5px;
   width: 100%;
@@ -91,7 +91,7 @@ code {
 
 .active-square:hover {
   cursor: pointer;
-  background-color: rgba(33, 160, 54, 0.8);
+  background-color: rgba(33, 46, 160, 0.8);
   color: rgba(255, 255, 255, .9);
 }
 
@@ -158,48 +158,29 @@ code {
   -webkit-text-stroke-color: rgba(0, 0, 0, 1);
 }
 
-#header .title {
-  display: inline-block;
-  width: 90%;
-  margin-top: 10px;
-  border-radius: 10px;
-  border: 2px solid rgba(255, 255, 255, 1);
-  font-size: 2.5em;
-  font-weight: bold;
-  background-color: rgba(0, 0, 0, .5);
-  color: rgba(255, 255, 255, .8);
-  text-align: center;
+#header img {
+  width: 100vw;
+  border: 2px solid rgba(255, 0, 0, 1);
 }
 
 #bingo-card .grid {
   margin-top: 2vh;
   background-color: rgba(0, 0, 0, .5);
   padding: 15px;
-  border-radius: 5px;
-  border: 2px solid rgba(255, 255, 255, 1);
-}
-
-#intro {
-  display: inline-block;
-  width: 100%;
-  margin-top: 5px;
   border-radius: 10px;
-  border: 2px solid rgba(255, 255, 255, 1);
-  font-size: 1em;
-  font-weight: bold;
-  background-color: rgba(0, 0, 0, .5);
-  color: rgba(255, 255, 255, .8);
-  text-align: center;
-  padding: 3px;
+  border: 2px solid red;
+  background-image: url("./assets//us-flag-21-apr-2017.jpeg");
+  background-size: cover;
+  
 }
 
 .index-info {
   display: block;
-  margin-top: 9px;
-  background-color: rgba(0, 0, 0, .7);
+  margin: 9px 4px;
+  background-color: rgba(255, 255, 255, 1);
   border-radius: 10px;
-  color: rgba(255, 255, 255, .9);
-  border: 3px solid rgba(255, 255, 255, .7);
+  color: rgba(0 ,0 ,0 , 1);
+  border: 3px solid rgba(255, 0, 0, .7);
   padding: 5px;
   font-size: 1.1em;
   font-weight: bold;
@@ -207,7 +188,12 @@ code {
 }
 
 #get-your-card img {
+  border: 2px solid white;
   width: 70vw;
+}
+
+#get-your-card img:hover {
+  border: 2px solid red;
 }
 
 #bingo-panel {
@@ -274,4 +260,12 @@ code {
     width: 30%;
   }
 
+  #header img {
+    width: 500px;
+    margin-top: 5px;
+  }
+
+  #get-your-card img {
+    width: 40vw;
+  }
 }
