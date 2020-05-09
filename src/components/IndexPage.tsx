@@ -9,7 +9,7 @@ export default class IndexPage extends React.Component<any, any> {
         return(
             <div className="row justify-content-center" id="index-page">
                 <div className="col-12 index-info">
-                STEP 1: Tune into a live briefing. No live briefing? <a href="https://www.youtube.com/results?search_query=corona+task+force+briefing" target="_blank" rel="noopener noreferrer">Search on Youtube</a>
+                STEP 1: Tune into a live briefing or round table. Nothing live? <a href="https://www.youtube.com/results?search_query=white+house+roundtable+news+briefing" target="_blank" rel="noopener noreferrer">Search Youtube</a>
                 <br/>
                 STEP 2: Invite your friends and family or plan a Briefing Bingo HAPPYHOUR!
                 <br/>
